@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dinner</title>
+    <div class="container" style="text-align: center; margin-top: 20px">
+        <img src="s/logo.png" style="width: 250px; height: 40px">
+    </div>
+</head>
+<body>
+<div class="number" style="font-family: 'Lucida Sans';">
+    <div class="container" style="text-align: center">
+        <div>
+            <div style="display: inline-block; width: 280px;text-align: left; margin-top: 20px">Salad - 50BC</div>
+            <div style="display: inline-block;width: 100px;text-align: center">
+                <button type="button" onClick="countChange('salad', '-')" class="btn btn-danger btn-sm minus">-</button>
+                <p id="salad" style="text-align: center; display: inline-block">0</p>
+                <button type="button" onClick="countChange('salad', '+')" class="btn btn-primary btn-sm plus">+</button>
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; width: 280px;text-align: left; margin-top: 14px">Omelette - 80BC</div>
+            <div style="display: inline-block;width: 100px;text-align: center">
+                <button type="button" onClick="countChange('omelette', '-')" class="btn btn-danger btn-sm minus">-</button>
+                <p id="omelette" style="text-align: center; display: inline-block">0</p>
+                <button type="button" onClick="countChange('omelette', '+')" class="btn btn-primary btn-sm plus">+</button>
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; width: 280px;text-align: left; margin-top: 14px">Chicken Soup - 120BC</div>
+            <div style="display: inline-block;width: 100px;text-align: center">
+                <button type="button" onClick="countChange('chSoup', '-')" class="btn btn-danger btn-sm minus">-</button>
+                <p id="chSoup" style="text-align: center; display: inline-block">0</p>
+                <button type="button" onClick="countChange('chSoup', '+')" class="btn btn-primary btn-sm plus">+</button>
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; width: 280px;text-align: left; margin-top: 14px">Cutlet - 100BC</div>
+            <div style="display: inline-block;width: 100px;text-align: center">
+                <button type="button" onClick="countChange('cutlet', '-')" class="btn btn-danger btn-sm minus">-</button>
+                <p id="cutlet" style="text-align: center; display: inline-block">0</p>
+                <button type="button" onClick="countChange('cutlet', '+')" class="btn btn-primary btn-sm plus">+</button>
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; width: 280px;text-align: left; margin-top: 14px">Cake - 70BC</div>
+            <div style="display: inline-block;width: 100px;text-align: center">
+                <button type="button" onClick="countChange('cake', '-')" class="btn btn-danger btn-sm minus">-</button>
+                <p id="cake" style="text-align: center; display: inline-block">0</p>
+                <button type="button" onClick="countChange('cake', '+')" class="btn btn-primary btn-sm plus">+</button>
+            </div>
+        </div>
+        <div>
+            <p style="text-align: center; display: inline-block">Total amount: </p>
+            <p id="balance" style="text-align: center; display: inline-block">0</p>
+            <p style="text-align: center; display: inline-block">BC</p>
+        </div>
+        <div style="margin-top: -10px; margin-bottom: 20px">
+            <button type="button" class="btn btn-success btn-sm">Buy</button>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+	let countObject = {
+		'salad': 0,
+		'omelette': 0,
+		'chSoup': 0,
+		'cutlet': 0,
+		'cake': 0,
+	};
+	let priceObject = {
+		'salad': 50,
+		'omelette': 80,
+		'chSoup': 120,
+		'cutlet': 100,
+		'cake': 70,
+	};
+
+	function countChange(id, change) {
+		if (change === '+') {
+			countObject[id]++;
+		} else {
+			if (countObject[id] > 0) {
+				countObject[id]--;
+			}
+		}
+		document.getElementById(id).innerHTML = countObject[id];
+		calc()
+	}
+
+	function calc() {
+		let value = 0;
+		for(let key in countObject) {
+			if(countObject[key] > 0) {
+                value = value + countObject[key]*priceObject[key];
+            }
+        }
+		console.log(value);
+		document.getElementById('balance').innerHTML = value;
+	}
+</script>
+</body>
+</html>
